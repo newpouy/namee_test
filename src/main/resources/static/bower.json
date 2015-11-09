@@ -1,0 +1,27 @@
+{
+  "name": "hades",
+  "version": "0.0.1",
+  "authors": [
+    "Young min"
+  ],
+  "description": "Stock Analysis tool",
+  "keywords": [
+    "stock"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "pages",
+    "index.html",
+    "/js"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "font-awesome": "~4.2.0",
+    "jquery": "~2.1.4"
+  }
+}
