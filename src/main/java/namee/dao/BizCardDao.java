@@ -2,12 +2,15 @@ package namee.dao;
 
 import java.util.ArrayList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import namee.domain.BizCard;
 
 @Repository
 public class BizCardDao {
+	Log log = LogFactory.getLog(getClass());
 	ArrayList<BizCard> list = new ArrayList<BizCard>();
 	
 	public BizCard insertBizCard(BizCard bc){
@@ -59,6 +62,7 @@ public class BizCardDao {
 				bc.setCompany(newBizCard.getCompany());
 				bc.setPhone(newBizCard.getPhone());
 				bizCard = bc;
+				
 			} 
 		}
 		if(bizCard==null){

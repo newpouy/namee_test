@@ -55,7 +55,20 @@
 
 
     </style>
-
+	<script>
+	console.log("hi");
+	(function(window){
+		$.ajax({
+	        url: "http://localhost:8080/bizcard",
+	        method: "GET",
+	        success: function(data){
+	        	console.log(data);
+	        	for(var each_data in data){console.log(each_data)}
+	            //listAdd(data.name, data.company, data.phone);
+	        }
+	    });
+	})();
+	</script>
 </head>
 <body>
 <div>
@@ -148,6 +161,20 @@
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script>
 
+(function(window){
+	$.ajax({
+        url: "http://localhost:8080/bizcard",
+        method: "GET",
+        success: function(data){
+        	console.log(data);
+        	for(var i in data){
+        		console.log(data[i])
+              listAdd(data[i].name, data[i].company, data[i].phone);
+        	}
+        }
+    });
+})();
+
     var BizCard = function(name, company, phone){
 
         var getName = function(){
@@ -191,11 +218,14 @@
                 }
             });
         };
-        var updateBizCard = function(element, p_card){
+        var updateBizCard = function(oldName, p_card){
+        	  console.log(JSON.stringify({name: p_card.getName(), company: p_card.getCompany(), phone: p_card.getPhone() }));
+        	  console.log(oldName);
             $.ajax({
-                url: "http://localhost:8080/bizcard/update/"+p_card.getName(),
+                url: "http://localhost:8080/bizcard/update/"+oldName,
                 method: "PUT",
                 data: JSON.stringify({name: p_card.getName(), company: p_card.getCompany(), phone: p_card.getPhone() }),
+                  contentType: 'application/json',
                 //dataType: 'json',
                 //data: {name: p_card.getName(), company: p_card.getCompany(), phone: p_card.getPhone()},
                 success: function(data){
@@ -238,10 +268,14 @@
 
 
     var selectedCard;
+    var oldName;
     var selectCard = function (element) {
         if(selectedCard!=undefined) $(selectedCard).removeClass('selected');
         $(element).addClass('selected');
         selectedCard = element;
+        console.log("hhi ");
+        oldName = $($(element).children('td')[0]).text();
+		console.log(oldName);	        
     };
 
     var btnAdd = function(){
@@ -312,7 +346,7 @@
         }else if(phone==''){
             alert("전화번호를 입력해 주세요.");
         }else{
-            BizNetwork.updateBizCard(selectedCard, new BizCard(name, company, phone));
+            BizNetwork.updateBizCard(oldName, new BizCard(name, company, phone));
             $('#updateLayer').css('display','none');
 
             $($(selectedCard).find('td')[0]).text(name);

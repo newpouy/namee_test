@@ -68,7 +68,7 @@ public class BizCardController {
 	
 	//update a bizCard with name
 	@RequestMapping(value="update/{name}", method=RequestMethod.PUT)
-	public @ResponseBody BizCard updateBizCard(@PathVariable String name, BizCard newBizCard){
+	public @ResponseBody BizCard updateBizCard(@PathVariable String name, @RequestBody BizCard newBizCard){
 		System.out.println("update a bizCard");
 		return bizCardService.updateBizCard(name, newBizCard);
 	}
